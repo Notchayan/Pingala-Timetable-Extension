@@ -1,12 +1,8 @@
-console.log("openend");
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-  chrome.tabs.sendMessage(
-    tabs[0].id,
-    { action: "getDP"},
-    function (response) {
+  chrome.tabs.sendMessage(tabs[0].id,{action: "getPersonalData"},function (response) {
       console.log(response);
       chrome.storage.local.set({personal_data : response }, function () {
-        console.log("dp stored");
+        console.log("Personal data stored");
       });
     }
     );

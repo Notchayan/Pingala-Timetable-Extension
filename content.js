@@ -1,4 +1,4 @@
-function getDP(){
+function getPersonalData(){
     let dp=document.getElementsByClassName('pull-left image')[0].getElementsByTagName('img')[0].src;
     let name=document.getElementsByClassName('pull-left info')[0].getElementsByTagName('p')[0].innerHTML.trim();
     let str=document.getElementsByClassName('content-header')[0]
@@ -17,16 +17,20 @@ function getDP(){
 
 }    
 
-
-
 chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
-    if(request.action==='getDP'){
-        sendResponse(getDP());
+    if(request.action==='getPersonalData'){
+        const bodyContent = document.body.innerHTML;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(bodyContent, 'text/html');
+        const header=doc.getElementById('headerText');
+        if(header!==null&&header.innerText===' Student Pre-Registration Application'){
+            sendResponse(getPersonalData());
+          }
     }
     if (request.action === 'GetTT') {
-      const bodyContent = document.body.innerHTML;
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(bodyContent, 'text/html');
+        const bodyContent = document.body.innerHTML;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(bodyContent, 'text/html');
       let timetable = {}
       if(!CheckSite(doc)){
         sendResponse({ timetable })
