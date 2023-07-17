@@ -1,4 +1,28 @@
+function getDP(){
+    let dp=document.getElementsByClassName('pull-left image')[0].getElementsByTagName('img')[0].src;
+    let name=document.getElementsByClassName('pull-left info')[0].getElementsByTagName('p')[0].innerHTML.trim();
+    let str=document.getElementsByClassName('content-header')[0]
+                     .getElementsByClassName('breadcrumb')[0]
+                     .getElementsByTagName('li')[1].innerText;
+    let roll_no=document.getElementsByClassName('row col-lg-12')[0].getElementsByClassName('col-lg-6')[0].getElementsByTagName('div')[0].innerText;
+    let programme=document.getElementsByClassName('row col-lg-12')[0].getElementsByClassName('col-lg-6')[1].getElementsByTagName('div')[0].innerText;
+    let dept=document.getElementsByClassName('row col-lg-12')[2].getElementsByClassName('col-lg-6')[0].getElementsByTagName('div')[0].innerText;
+    let appliedCredits=document.getElementsByClassName('row col-lg-12')[2].getElementsByClassName('col-lg-6')[1].getElementsByTagName('div')[0].innerText;
+    let sem="";
+    for(let i=0;i<str.length;i++){
+        if((str[i]>='0'&&str[i]<='9')||str[i]==='/') sem+=str[i];
+    }
+    sem=sem.slice(0,4) +'-'+sem.slice(4);
+    return {dp:dp,name:name,roll_no:roll_no,programme:programme,dept:dept,appliedCredits:appliedCredits,sem:sem};
+
+}    
+
+
+
 chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
+    if(request.action==='getDP'){
+        sendResponse(getDP());
+    }
     if (request.action === 'GetTT') {
       const bodyContent = document.body.innerHTML;
       const parser = new DOMParser();
