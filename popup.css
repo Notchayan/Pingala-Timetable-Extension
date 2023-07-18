@@ -51,4 +51,7 @@ button {
 button:hover {
   background-color: #2656c8;
 }
-  
+
+.hide{
+  display: none;
+}
