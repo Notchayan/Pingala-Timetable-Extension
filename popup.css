@@ -7,40 +7,104 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 430px; /* Adjust the height as per your preference */
-  background-color: #f2f2f2;
+  height: 560px; /* Adjust the height as per your preference */
+  background-color: #ffffff;
   overflow: hidden;
   display:flex;
   flex-direction: column;
 }
 .personal{
-  text-align: left;
-  background-color: white;
   display:flex;
-  flex-direction:row;
+  flex-direction:column;
+  flex-wrap: wrap;
   font-size:15px;
   justify-content: center;
   border-radius: 10px;
+  margin-bottom:16.08px;
+  margin-bottom: 20px;
 }
-
+.personalData{
+  margin-top:20px;
+  text-align: left;
+  background-color: #373c4f;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.imgDiv{
+  margin-top:-20px;
+  height:120px;
+}
+.imgDivBox{
+  margin-left:auto;
+  margin-right:auto;
+  width:110px;
+  height:70px;
+  background-color: #b38add;
+  display:flex;
+  flex-direction: column-reverse;
+}
+img{
+  border:10px solid;
+  border-color: #373c4f;
+  position:relative;
+  top:-47.5px;
+}
+.nameDiv{
+  margin-left:-20px;
+  margin-right:-20px;
+  margin-top:20px;
+  text-align: center;
+  background-color: #b38add;
+  color:black;
+  font-family: 'Quicksand', sans-serif;
+}
+.list{
+  color:#f9daff;
+  list-style-type:none;
+}
+ul{
+  padding-inline-start: 0px;
+}
 .container {
   border-radius: 10px;
   width: 320px;
   padding: 20px;
   text-align: center;
-  background-color: #fff;
+  background-color: #373c4f;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-height: 100%;
   overflow-y: auto;
 }
+h1{
+  font-size: 25px;
+  margin:0px;
+  margin-top:10px;
+}
+h3{
+  margin:0px;
+  margin-bottom:10px;
+}
+
+
+.tt{
+  color:#f9daff;
+  margin-bottom:10px;
+}
+
+.listDiv{
+  display:flex;
+  justify-content: center;
+
+}
 
 .header {
-  margin-bottom: 20px;
+  margin-top:-20px;
 }
 
 .header h2 {
   font-size: 18px;
-  color: #333;
+  color: 373c4f;
 }
 
 .buttons {
@@ -57,13 +121,14 @@ button {
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #4c7bfa;
-  color: #fff;
+  background-color: #b38add;
+  color: black;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #2656c8;
+  background-color: #9267bc;
+
 }
   

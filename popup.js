@@ -7,20 +7,32 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     }
     );
   });
-  let img=document.createElement('img');
   let personalDataDiv=document.createElement('div');
-  personalDataDiv.className="personalData";
+  personalDataDiv.classList.add("personalData");
+  let imgDiv=document.createElement('div');
+  let imgDivBox=document.createElement('div');
+  imgDiv.classList.add("imgDiv");
+  imgDivBox.classList.add("imgDivBox");
+  let img=document.createElement('img');
+  let nameDiv=document.createElement('div');
+  let listDiv=document.createElement('div');
+  nameDiv.classList.add('nameDiv');
+  listDiv.classList.add('listDiv');
+  let n=document.createElement('h1');
+  let r=document.createElement('h3');
   let list=document.createElement('ul');
+  list.classList.add('list');
   chrome.storage.local.get('personal_data',(result)=>{
+    n.innerHTML="<b>"+result.personal_data.name+"</b>";
+    r.innerHTML="<b>"+result.personal_data.roll_no+"</b>";
+    nameDiv.appendChild(n);
+    nameDiv.appendChild(r);
+    personalDataDiv.appendChild(nameDiv);
     let val=result.personal_data.dp;
     img.src=val;
-    document.getElementsByClassName('personal')[0].appendChild(img);
-    let name=document.createElement('li');
-    name.innerHTML="Name : "+"<b>"+result.personal_data.name+"</b>";
-    list.appendChild(name);
-    let roll_no=document.createElement('li');
-    roll_no.innerHTML="Roll Number : "+"<b>"+result.personal_data.roll_no+"</b>";
-    list.appendChild(roll_no);
+    imgDiv.appendChild(imgDivBox);
+    imgDiv.appendChild(img);
+    document.getElementsByClassName('personal')[0].appendChild(imgDiv);
     let programme=document.createElement('li');
     programme.innerHTML="Programme : "+"<b>"+result.personal_data.programme+"</b>";
     list.appendChild(programme);
@@ -33,10 +45,10 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     let appliedCredits=document.createElement('li');
     appliedCredits.innerHTML="Applied Credits: "+"<b>"+result.personal_data.appliedCredits+"</b>";
     list.appendChild(appliedCredits);
-    personalDataDiv.appendChild(list);
+    listDiv.appendChild(list);
+    personalDataDiv.appendChild(listDiv);
     document.getElementsByClassName('personal')[0].appendChild(personalDataDiv);
-    document.getElementsByTagName('ul')[0].style="list-style-type:none;padding:0px;padding-left:15px;margin:0px;";
-    document.getElementsByTagName('img')[0].style="border-radius:100%;width:95px;height:95px;object-fit:cover;object-position:0% 0%;margin-top:auto;margin-bottom:auto;";
+    document.getElementsByTagName('img')[0].style="border-radius:100%;width:110px;height:110px;object-fit:cover;object-position:0% 0%;margin-top:auto;margin-bottom:auto;";
   });
 
 
