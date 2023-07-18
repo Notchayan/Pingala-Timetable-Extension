@@ -81,7 +81,6 @@ function CheckSite(doc){
         InvalidSite()
         return false
     }
-    alert('Yout Time Table has been Successfly Updated. Now, Everytime Chrome will Notify you about your upcoming class in 15 min advance.')
     return true
 }
 
