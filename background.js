@@ -115,6 +115,10 @@ function showTT(){
       for (let j = 0; j < 5; j++) {
         const day = Day(j);
         const classes = storedData[day]
+        let lecture;
+        let lab;
+        let conti_lec;
+        let conti_lab;
         
         classes.forEach(data => {
           const strat_num = data.time.slice(0,2)
@@ -149,20 +153,40 @@ function showTT(){
           }
 
           if(start_hour==i && end_hour-start_hour != 3){
-            tableHTML += `<td style="padding: 8px; background-color: pink ">${data.title}</td>`;
+            lecture = data.title
           } else if(start_hour==i && end_hour-start_hour == 3){
-            tableHTML += `<td style="padding: 8px; background-color: #A0DEFF ">${data.title}</td>`;
-          }
-          for (let k = 1; k < end_hour - start_hour; k++){
-            if(start_hour+k == i && end_hour-start_hour == 3){
-              tableHTML += `<td style="padding: 8px; background-color: #A0DEFF "></td>`;
-            }else if(start_hour+k == i && end_hour-start_hour != 3){
-              tableHTML += `<td style="padding: 8px; background-color: pink "></td>`;
-            }
+            lab = data.title
           }
 
+
+          // for (let k = 1; k < end_hour - start_hour; k++){
+          //   if(start_hour+k == i && end_hour-start_hour == 3){
+          //     tableHTML += `<td style="padding: 8px; background-color: #A0DEFF "></td>`;
+          //   }else if(start_hour+k == i && end_hour-start_hour != 3){
+          //     tableHTML += `<td style="padding: 8px; background-color: pink "></td>`;
+          //   }
+          // }
+
+          for (let k = 1; k < end_hour - start_hour; k++){
+            if(start_hour+k == i && end_hour-start_hour == 3){
+              conti_lab = 1
+            }else if(start_hour+k == i && end_hour-start_hour != 3){
+              conti_lec = 1
+            }
+          }
         });
-        
+
+        if(lecture){
+          tableHTML += `<td style="border-top: 1px solid black; border-right: 1px solid black; padding: 8px; background-color: pink ">${lecture}</td>`;
+        }else if(lab){
+          tableHTML += `<td style="border-top: 1px solid black; border-right: 1px solid black; padding: 8px; background-color: #A0DEFF ">${lab}</td>`;
+        }else if(conti_lec){
+          tableHTML += `<td style="border-right: 1px solid black; padding: 8px; background-color: pink "></td>`;
+        }else if(conti_lab){
+          tableHTML += `<td style="border-right: 1px solid black;padding: 8px; background-color: #A0DEFF "></td>`;
+        }else{
+          tableHTML += `<td style="border: 1px solid black; padding: 8px; background-color: white "></td>`;
+        }
       }
 
       tableHTML += '</tr>';
