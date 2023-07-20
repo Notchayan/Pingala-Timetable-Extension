@@ -158,15 +158,6 @@ function showTT(){
             lab = data.title
           }
 
-
-          // for (let k = 1; k < end_hour - start_hour; k++){
-          //   if(start_hour+k == i && end_hour-start_hour == 3){
-          //     tableHTML += `<td style="padding: 8px; background-color: #A0DEFF "></td>`;
-          //   }else if(start_hour+k == i && end_hour-start_hour != 3){
-          //     tableHTML += `<td style="padding: 8px; background-color: pink "></td>`;
-          //   }
-          // }
-
           for (let k = 1; k < end_hour - start_hour; k++){
             if(start_hour+k == i && end_hour-start_hour == 3){
               conti_lab = 1
