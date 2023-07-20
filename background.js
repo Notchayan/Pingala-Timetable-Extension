@@ -101,47 +101,29 @@ function upcomingClass(){
   });
 }
 
-//timetable format changed
+
 function showTT(){
   chrome.storage.local.get(['timetable'], function(result) {
     let storedData = result.timetable
-    tableHTML = '<table class="timetable-table" style="border-collapse: collapse; width: 100%;">';
-    tableHTML += '<tr><th style="border: 1px solid black; padding: 8px;"></th><th style="border: 1px solid black; padding: 8px;">Monday</th><th style="border: 1px solid black; padding: 8px;">Tuesday</th><th style="border: 1px solid black; padding: 8px;">Wednesday</th><th style="border: 1px solid black; padding: 8px;">Thursday</th><th style="border: 1px solid black; padding: 8px;">Friday</th></tr>';
-
-    for (let i = 8; i <= 19; i++) {
-      tableHTML += '<tr>';
-      tableHTML += `<td style="border: 1px solid black; padding: 8px;">${i % 12}:00 ${i < 12 ? 'AM' : 'PM'}</td>`;
-
-      for (let j = 0; j < 5; j++) {
-        const day = Day(j);
-        const classes = storedData[day]
-        
-        classes.forEach(data => {
-          const num = data.time.slice(0,2)
-          const sun = data.time.slice(-2)
-          let hour;
-
-          if(num>9){
-              hour = data.time.slice(0,2)
-              
-          }else{
-              hour = data.time[0]
-          }
-
-          if(sun=='PM'){
-            hour = parseInt(hour)
-            hour+= 12
-          }
-
-          if(hour==i){
-            tableHTML += `<td style="border: 1px solid black; padding: 8px; background-color:pink">${data.title}</td>`;
-          }
-        });
-        
-      }
-
-      tableHTML += '</tr>';
+    tableHTML = '<table style="border-collapse: collapse; width: 100%;">';
+    tableHTML += '<tr><th style="border: 1px solid black; padding: 8px;">Day</th><th style="border: 1px solid black; padding: 8px;">Time</th><th style="border: 1px solid black; padding: 8px;">Title</th></tr>';
+    const days = []
+    for(let i=0; i<5; i++){
+      days.push(Day(i))
     }
+    let i = 0
+    days.forEach(day  => {
+      i = i+1
+      const dataArray = storedData[day]
+      dataArray.forEach(data => {
+        const time = data.time
+        const title = data.title
+        tableHTML += `<tr><td style="border: 1px solid black; padding: 8px;">${day}</td><td style="border: 1px solid black; padding: 8px;">${time}</td><td style="border: 1px solid black; padding: 8px;">${title}</td></tr>`;
+      });
+      if (i !== days.length) {
+        tableHTML += '<tr><td colspan="3" style="border: none; height: 10px;"></td></tr>';
+      }
+    });
     tableHTML += '</table>'
     chrome.tabs.create({ url: 'data:text/html;charset=utf-8,' + encodeURIComponent(tableHTML) });
   });
