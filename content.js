@@ -46,16 +46,13 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
         for(let j=0; j<x.length; j++){
             const time1 = x[j].getElementsByClassName("fc-time")
             const title1 = x[j].getElementsByClassName("fc-title")
-            let time = null
-            let time_start = null;
-            let time_end = null;
+            let time = null;
             let title = null;
             Array.from(time1).forEach((element) => {
                 time = element.getAttribute("data-full")
                 for(let k=0; k<time.length; k++){
                     if(time[k] === '-'){
-                        time_start = time.slice(0,k-1)
-                        time_end = time.slice(k+2)
+                        time = time.slice(0,k-1)
                     }
                 }
               });
@@ -69,7 +66,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
             timetable[day].push({ time: time, title: title , lectureHall : '' })
         }
       }
-      sendResponse({timetable});
+      sendResponse({ timetable });
     }
  });
 
