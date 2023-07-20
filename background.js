@@ -108,7 +108,7 @@ function showTT(){
     tableHTML = '<table class="timetable-table" style="border-collapse: collapse; width: 100%;">';
     tableHTML += '<tr><th style="border: 1px solid black; padding: 8px;"></th><th style="border: 1px solid black; padding: 8px;">Monday</th><th style="border: 1px solid black; padding: 8px;">Tuesday</th><th style="border: 1px solid black; padding: 8px;">Wednesday</th><th style="border: 1px solid black; padding: 8px;">Thursday</th><th style="border: 1px solid black; padding: 8px;">Friday</th></tr>';
 
-    for (let i = 8; i <= 19; i++) {
+    for (let i = 8; i <= 18; i++) {
       tableHTML += '<tr>';
       tableHTML += `<td style="border: 1px solid black; padding: 8px;">${i % 12}:00 ${i < 12 ? 'AM' : 'PM'}</td>`;
 
@@ -117,25 +117,50 @@ function showTT(){
         const classes = storedData[day]
         
         classes.forEach(data => {
-          const num = data.time.slice(0,2)
-          const sun = data.time.slice(-2)
-          let hour;
+          const strat_num = data.time.slice(0,2)
+          const end_num = data.time_end.slice(0,2)
+          const start_sun = data.time.slice(-2)
+          const end_sun = data.time_end.slice(-2)
+          let start_hour;
+          let end_hour;
 
-          if(num>9){
-              hour = data.time.slice(0,2)
+          if(strat_num>9){
+              start_hour = data.time.slice(0,2)
               
           }else{
-              hour = data.time[0]
+              start_hour = data.time[0]
           }
 
-          if(sun=='PM'){
-            hour = parseInt(hour)
-            hour+= 12
+          if(end_num>9){
+            end_hour = data.time_end.slice(0,2)
+            
+          }else{
+              end_hour = data.time_end[0]
           }
 
-          if(hour==i){
-            tableHTML += `<td style="border: 1px solid black; padding: 8px; background-color:pink">${data.title}</td>`;
+          if(start_sun=='PM'){
+            start_hour = parseInt(start_hour)
+            start_hour+= 12
           }
+
+          if(end_sun=='PM'){
+            end_hour = parseInt(end_hour)
+            end_hour+= 12
+          }
+
+          if(start_hour==i && end_hour-start_hour != 3){
+            tableHTML += `<td style="padding: 8px; background-color: pink ">${data.title}</td>`;
+          } else if(start_hour==i && end_hour-start_hour == 3){
+            tableHTML += `<td style="padding: 8px; background-color: #A0DEFF ">${data.title}</td>`;
+          }
+          for (let k = 1; k < end_hour - start_hour; k++){
+            if(start_hour+k == i && end_hour-start_hour == 3){
+              tableHTML += `<td style="padding: 8px; background-color: #A0DEFF "></td>`;
+            }else if(start_hour+k == i && end_hour-start_hour != 3){
+              tableHTML += `<td style="padding: 8px; background-color: pink "></td>`;
+            }
+          }
+
         });
         
       }
