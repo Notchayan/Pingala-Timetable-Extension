@@ -115,14 +115,7 @@ function showTT(){
         "
       >`;
     tableHTML += `
-      <div 
-        style="
-          font-size: 50px; 
-          padding: 20px; 
-          width: 100%; 
-          text-align: center;
-        "
-      >
+      <div style="font-size: min(7vw,50px); padding: min(.4rem,20px); width: 100%; text-align: center;">
         Class Schedule
       </div>`
     tableHTML += `
