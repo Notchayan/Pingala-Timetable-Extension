@@ -105,12 +105,55 @@ function upcomingClass(){
 function showTT(){
   chrome.storage.local.get(['timetable'], function(result) {
     let storedData = result.timetable
-    tableHTML = '<table class="timetable-table" style=" text-align: center; overflow: hidden; width: 100%; max-height: 100%; border-spacing: 0; border-collapse: collapse; border-radius: 16px; background-color: rgb(243, 243, 243);">';
-    tableHTML += '<tr><th style="height: min(8vh,40px); border: 2px solid white; width: auto; padding: 4px;"></th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Monday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Tuesday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Wednesday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Thursday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Friday</th></tr>';
+    tableHTML = `
+      <div 
+        style=" 
+          display: flex; 
+          align-items: center; 
+          justify-content: space-around; 
+          flex-direction: column;
+        "
+      >`;
+    tableHTML += `
+      <div 
+        style="
+          font-size: 50px; 
+          padding: 20px; 
+          width: 100%; 
+          text-align: center;
+        "
+      >
+        Class Schedule
+      </div>`
+    tableHTML += `
+      <table 
+        class="timetable-table" 
+        style=" 
+          text-align: center; 
+          overflow: hidden; 
+          width: min(100%,80rem); 
+          max-height: 100%; 
+          border-spacing: 0; 
+          border-collapse: collapse; 
+          border-radius: 16px; 
+          background-color: rgb(243, 243, 243);
+        "
+      >`;
+    tableHTML += `
+      <tr>
+        <th style="height: min(6vh,40x); border: 2px solid white; width: auto; padding: 4px;"></th>
+        <th style="height: min(7vh,90px); border: 2px solid white; width: 18%; padding: 4px;">Monday</th>
+        <th style="height: min(7vh,90px); border: 2px solid white; width: 18%; padding: 4px;">Tuesday</th>
+        <th style="height: min(7vh,90px); border: 2px solid white; width: 18%; padding: 4px;">Wednesday</th>
+        <th style="height: min(7vh,90px); border: 2px solid white; width: 18%; padding: 4px;">Thursday</th>
+        <th style="height: min(7vh,90px); border: 2px solid white; width: 18%; padding: 4px;">Friday</th></tr>`;
 
     for (let i = 8; i <= 18; i++) {
-      tableHTML += '<tr>';
-      tableHTML += `<td style="font-weight: bold; width: auto; color: gray; height: min(8vh,100px);border: 2px solid white; padding: 8px; white-space: nowrap;">${i % 12}:00 ${i < 12 ? 'AM' : 'PM'}</td>`;
+      tableHTML += `<tr>`;
+      tableHTML += `
+        <td style="font-weight: bold; width: auto; color: gray; height: min(7vh,90px);border: 2px solid white; padding: 8px; white-space: nowrap;">
+        ${i == 12 ? 12 : i % 12}:00 ${i < 12 ? 'AM' : 'PM'}
+        </td>`;
 
       for (let j = 0; j < 5; j++) {
         const day = Day(j);
@@ -171,14 +214,78 @@ function showTT(){
         });
 
         if(lecture){
-          tableHTML += `<td style="height: min(8vh,100px); border-top: 2px solid white; border-right: 2px solid white; padding: 4px;"><div style="background-color: #368fb6; color: white; font-weight: 500; height: 100%; padding-top: 8px; border-radius: 7px; text-align: center; display: flex; justify-content: space-around; justify-items: center; padding-bottom: 0;">${lecture}</div></td>`;
+          tableHTML += `
+            <td 
+              style="
+                  height: min(7vh,90px);
+                  border-top: 2px solid white; 
+                  border-right: 2px solid white; 
+                  padding: 4px;
+              "
+            >
+              <div 
+                style="
+                  background-color: #368fb6; 
+                  color: white; 
+                  font-weight: 500; 
+                  height: 100%; 
+                  padding-top: 8px; 
+                  border-radius: 7px; 
+                  text-align: center; 
+                  display: flex; 
+                  justify-content: space-around; 
+                  justify-items: center; 
+                  padding-bottom: 0;
+                "
+              >
+                ${lecture}
+              </div>
+            </td>`;
+
         }else if(lab){
-          tableHTML += `<td style="height: min(8vh,100px); border-top: 2px solid white; border-right: 2px solid white; padding-bottom: 0px; padding-left: 4px; padding-right: 4px; padding-top: 2px; border-collapse: collapse;"><div style=" background-color: #9f70b8; color: white; font-weight: 500; height: 100%; border-top-left-radius: 7px; border-top-right-radius: 7px; text-align: center; padding-bottom: 0;">${lab}</div></td>`;
+          tableHTML += `
+            <td 
+              style="
+                height: min(7vh,90px);
+                border-top: 2px solid white;
+                border-right: 2px solid white;
+                padding-bottom: 0px;
+                padding-left: 4px;
+                padding-right: 4px;
+                padding-top: 2px;
+                border-collapse: collapse;              "
+            >
+              <div 
+                style=" 
+                  background-color: #9f70b8; 
+                  color: white; 
+                  font-weight: 500; 
+                  height: 100%; 
+                  border-top-left-radius: 7px; 
+                  border-top-right-radius: 7px; 
+                  text-align: center; 
+                  padding-bottom: 0;
+                "
+              >
+                ${lab}
+              </div>
+            </td>`;
         }else if(conti_lab){
-          if(end_slot){tableHTML += `<td style="height: min(8vh,100px); border-right: 2px solid white; padding-top: 0; padding-bottom: 2px; padding-left: 4px; padding-right: 4px;"><div style="background-color: #9f70b8; color: white; font-weight: 500; height: 100%; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;"></div></td>`;}
-          else{tableHTML += `<td style="height: min(8vh,100px); border-right: 2px solid white; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px;"><div style="background-color: #9f70b8; color: white; font-weight: 500; height: 120%;"></div></td>`;}
+          if(end_slot){
+            tableHTML += `
+              <td style="height: min(7vh,90px); border-right: 2px solid white; padding-top: 0; padding-bottom: 2px; padding-left: 4px; padding-right: 4px;">
+                <div style="background-color: #9f70b8; color: white; font-weight: 500; height: 100%; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;">
+                </div>
+              </td>`;
+            }else{
+              tableHTML += `
+                <td style="height: min(7vh,90px); border-right: 2px solid white; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px;">
+                  <div style="background-color: #9f70b8; color: white; font-weight: 500; height: 120%;">
+                  </div>
+                </td>`;
+              }
        }else{
-          tableHTML += `<td style="height: min(8vh,100px);border: 2px solid white; padding: 8px;"></td>`;
+          tableHTML += `<td style="height: min(7vh,90px);border: 2px solid white; padding: 8px;"></td>`;
         }
 
         // else if(conti_lec){
@@ -186,9 +293,10 @@ function showTT(){
         // }
       }
 
-      tableHTML += '</tr>';
+      tableHTML += `</tr>`;
     }
-    tableHTML += '</table>'
+    tableHTML += `</table>`
+    tableHTML += `</div>`;
     chrome.tabs.create({ url: 'data:text/html;charset=utf-8,' + encodeURIComponent(tableHTML) });
   });
 }
