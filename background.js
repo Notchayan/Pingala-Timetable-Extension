@@ -105,12 +105,12 @@ function upcomingClass(){
 function showTT(){
   chrome.storage.local.get(['timetable'], function(result) {
     let storedData = result.timetable
-    tableHTML = '<table class="timetable-table" style="border-collapse: collapse; width: 100%;">';
-    tableHTML += '<tr><th style="border: 1px solid black; padding: 8px;"></th><th style="border: 1px solid black; padding: 8px;">Monday</th><th style="border: 1px solid black; padding: 8px;">Tuesday</th><th style="border: 1px solid black; padding: 8px;">Wednesday</th><th style="border: 1px solid black; padding: 8px;">Thursday</th><th style="border: 1px solid black; padding: 8px;">Friday</th></tr>';
+    tableHTML = '<table class="timetable-table" style=" text-align: center; overflow: hidden; width: 100%; max-height: 100%; border-spacing: 0; border-collapse: collapse; border-radius: 16px; background-color: rgb(243, 243, 243);">';
+    tableHTML += '<tr><th style="height: min(8vh,40px); border: 2px solid white; width: auto; padding: 4px;"></th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Monday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Tuesday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Wednesday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Thursday</th><th style="height: min(8vh,100px); border: 2px solid white; width: 18%; padding: 4px;">Friday</th></tr>';
 
     for (let i = 8; i <= 18; i++) {
       tableHTML += '<tr>';
-      tableHTML += `<td style="border: 1px solid black; padding: 8px;">${i % 12}:00 ${i < 12 ? 'AM' : 'PM'}</td>`;
+      tableHTML += `<td style="font-weight: bold; width: auto; color: gray; height: min(8vh,100px);border: 2px solid white; padding: 8px; white-space: nowrap;">${i % 12}:00 ${i < 12 ? 'AM' : 'PM'}</td>`;
 
       for (let j = 0; j < 5; j++) {
         const day = Day(j);
@@ -119,6 +119,7 @@ function showTT(){
         let lab;
         let conti_lec;
         let conti_lab;
+        let end_slot;
         
         classes.forEach(data => {
           const strat_num = data.time.slice(0,2)
@@ -165,19 +166,24 @@ function showTT(){
               conti_lec = 1
             }
           }
+
+          if(end_hour-start_hour==3 && i == end_hour-1){ end_slot= true}
         });
 
         if(lecture){
-          tableHTML += `<td style="border-top: 1px solid black; border-right: 1px solid black; padding: 8px; background-color: pink ">${lecture}</td>`;
+          tableHTML += `<td style="height: min(8vh,100px); border-top: 2px solid white; border-right: 2px solid white; padding: 4px;"><div style="background-color: #368fb6; color: white; font-weight: 500; height: 100%; padding-top: 8px; border-radius: 7px; text-align: center; display: flex; justify-content: space-around; justify-items: center; padding-bottom: 0;">${lecture}</div></td>`;
         }else if(lab){
-          tableHTML += `<td style="border-top: 1px solid black; border-right: 1px solid black; padding: 8px; background-color: #A0DEFF ">${lab}</td>`;
-        }else if(conti_lec){
-          tableHTML += `<td style="border-right: 1px solid black; padding: 8px; background-color: pink "></td>`;
+          tableHTML += `<td style="height: min(8vh,100px); border-top: 2px solid white; border-right: 2px solid white; padding-bottom: 0px; padding-left: 4px; padding-right: 4px; padding-top: 2px; border-collapse: collapse;"><div style=" background-color: #9f70b8; color: white; font-weight: 500; height: 100%; border-top-left-radius: 7px; border-top-right-radius: 7px; text-align: center; padding-bottom: 0;">${lab}</div></td>`;
         }else if(conti_lab){
-          tableHTML += `<td style="border-right: 1px solid black;padding: 8px; background-color: #A0DEFF "></td>`;
-        }else{
-          tableHTML += `<td style="border: 1px solid black; padding: 8px; background-color: white "></td>`;
+          if(end_slot){tableHTML += `<td style="height: min(8vh,100px); border-right: 2px solid white; padding-top: 0; padding-bottom: 2px; padding-left: 4px; padding-right: 4px;"><div style="background-color: #9f70b8; color: white; font-weight: 500; height: 100%; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;"></div></td>`;}
+          else{tableHTML += `<td style="height: min(8vh,100px); border-right: 2px solid white; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px;"><div style="background-color: #9f70b8; color: white; font-weight: 500; height: 120%;"></div></td>`;}
+       }else{
+          tableHTML += `<td style="height: min(8vh,100px);border: 2px solid white; padding: 8px;"></td>`;
         }
+
+        // else if(conti_lec){
+        //   tableHTML += `<td style="height: min(8vh,100px);border-right: 1px solid black; padding: 8px; background-color: pink "></td>`;
+        // }
       }
 
       tableHTML += '</tr>';
