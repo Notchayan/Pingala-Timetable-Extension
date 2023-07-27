@@ -33,6 +33,26 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
   if(request.action === 'upcomingClass') {
     upcomingClass();
   }
+  if(request.action === 'LHC'){
+    chrome.storage.local.get(['timetable'], function(response) {
+      const timetable = response.timetable
+      courses = new Set()
+      for(let day in timetable){
+        timetable[day].forEach((element) => {
+          let x = element.title
+          x = x.slice(x.indexOf('-')+1)
+          courses.add(x)
+        })
+      }
+      courses = Array.from(courses)
+      chrome.tabs.sendMessage(request.tabId, {action: 'LHC', courses: courses});
+    });
+  }
+  if(request.action === 'LHCData'){
+    let LHC = request.data
+    console.log('LHC: ',LHC)
+    chrome.storage.local.set({ LHC: LHC});
+  }
 });
 
 
