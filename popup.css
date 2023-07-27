@@ -131,4 +131,7 @@ button:hover {
   background-color: #9267bc;
 
 }
-  
+
+.hide{
+  display: none;
+}
