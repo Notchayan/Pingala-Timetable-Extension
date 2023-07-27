@@ -155,7 +155,6 @@ document
               let parent = button.parentNode;
               let inputField = parent.querySelector("." + subject + "Inp");
               let lectureHall = inputField.value;
-
               chrome.storage.local.get(["timetable"], (data) => {
                 let timetable = data.timetable;
 

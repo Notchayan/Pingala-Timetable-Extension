@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Wix+Madefor+Display:wght@500&display=swap');
 body {
   font-family: Arial, sans-serif;
   background-color: #f2f2f2;
@@ -15,7 +14,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .header {
   margin-bottom: 7.5px;
 }
