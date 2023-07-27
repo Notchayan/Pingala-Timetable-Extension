@@ -6,7 +6,7 @@ document.getElementById('updateBtn').addEventListener('click', async function() 
 });
 
 
-document.getElementById('show_TT').addEventListener('click', async function() {
+document.getElementById('Show_TT').addEventListener('click', async function() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.runtime.sendMessage({ action: 'ShowTT', tabId: tab.id });
 });
