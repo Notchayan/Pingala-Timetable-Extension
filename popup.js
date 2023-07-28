@@ -1,9 +1,15 @@
 document.getElementById('updateBtn').addEventListener('click', async function() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.runtime.sendMessage({ action: 'GetTT', tabId: tab.id });
-  //document.getElementById('timetableBtn').classList.remove('hide');
-  window.alert('Yout Time Table has been Successfly Updated. Now, Everytime Chrome will Notify you about your upcoming class in 15 min advance.')
 });
+
+
+chrome.storage.local.get(['personal_data'], function(result) {
+  console.log(result.personal_data);
+  if(Object.keys(result).length){
+    Add_DashBoard(result.personal_data)
+  }
+})
 
 
 document.getElementById('Show_TT').addEventListener('click', async function() {
@@ -25,16 +31,17 @@ document
     document.getElementById("timetableBtn").style.display = "none";
     document.getElementById("updateBtn").style.display = "none";
     document.getElementById("LHC").style.display = "none";
-    const bodyElement = document.getElementById("body");
+    document.getElementsByClassName("personal")[0].style.display = "none";
+    const ContainerElement = document.getElementsByClassName("container")[0];
     let closeButton = document.createElement("button");
-    bodyElement.style.width = "798px";
+    ContainerElement.style.width = "798px";
     closeButton.innerHTML = "Back";
     closeButton.id = "closeButton";
     document.getElementById("closeBtn").appendChild(closeButton);
 
     document.getElementById("closeButton").addEventListener("click", () => {
-      const bodyElement = document.getElementById("body");
-      bodyElement.style.width = "275px";
+      const ContainerElement = document.getElementsByClassName("container")[0];
+      ContainerElement.style.width = "320px";
       document.getElementById("closeBtn").innerHTML = "";
       document.getElementById("timetableBtns").innerHTML = "";
       document.getElementById("timetableGrid").innerHTML = "";
@@ -42,6 +49,7 @@ document
       document.getElementById("timetableBtn").style.display = "";
       document.getElementById("updateBtn").style.display = "";
       document.getElementById("LHC").style.display = "";
+      document.getElementsByClassName("personal")[0].style.display = "";
       timetableGrid.style.opacity = '0';
     }); 
     addTT();
@@ -60,8 +68,8 @@ document
     deleteBtn.addEventListener("click", () => {
       if (deleteButtonClicked) {
         deleteButtonClicked = false;
-        deleteBtn.innerHTML = "Delete Row";
-        deleteBtn.style.backgroundColor = "#4c7bfa";
+        deleteBtn.innerHTML = "Delete Class";
+        deleteBtn.style.backgroundColor = "#b38add";
         deleteBtn.style.color = "white";
         deleteBtn.style.border = "none";
         let minusSigns = document.getElementsByClassName("minus-btn");
@@ -203,6 +211,50 @@ function addTT() {
     gridHTML += "</div>";
     document.getElementById("timetableGrid").innerHTML = gridHTML;
   });
+}
+
+function Add_DashBoard(x){
+  let personalDataDiv=document.createElement('div');
+  personalDataDiv.classList.add("personalData");
+  let imgDiv=document.createElement('div');
+  let imgDivBox=document.createElement('div');
+  imgDiv.classList.add("imgDiv");
+  imgDivBox.classList.add("imgDivBox");
+  let img=document.createElement('img');
+  let nameDiv=document.createElement('div');
+  let listDiv=document.createElement('div');
+  nameDiv.classList.add('nameDiv');
+  listDiv.classList.add('listDiv');
+  let n=document.createElement('h1');
+  let r=document.createElement('h3');
+  let list=document.createElement('ul');
+  list.classList.add('list');
+  n.innerHTML="<b>"+x.name+"</b>";
+  r.innerHTML="<b>"+x.roll_no+"</b>";
+  nameDiv.appendChild(n);
+  nameDiv.appendChild(r);
+  personalDataDiv.appendChild(nameDiv);
+  let val=x.dp;
+  img.src=val;
+  imgDiv.appendChild(imgDivBox);
+  imgDiv.appendChild(img);
+  document.getElementsByClassName('personal')[0].appendChild(imgDiv);
+  let programme=document.createElement('li');
+  programme.innerHTML="Programme : "+"<b>"+x.programme+"</b>";
+  list.appendChild(programme);
+  let dept=document.createElement('li');
+  dept.innerHTML="Department : " + "<b>"+x.dept+"</b>";
+  list.appendChild(dept);
+  let sem=document.createElement('li');
+  sem.innerHTML="Semester : " + "<b>"+x.sem+"</b>";
+  list.appendChild(sem);
+  let appliedCredits=document.createElement('li');
+  appliedCredits.innerHTML="Applied Credits: "+"<b>"+x.appliedCredits+"</b>";
+  list.appendChild(appliedCredits);
+  listDiv.appendChild(list);
+  personalDataDiv.appendChild(listDiv);
+  document.getElementsByClassName('personal')[0].appendChild(personalDataDiv);
+  document.getElementsByTagName('img')[0].style="border-radius:100%;width:110px;height:110px;object-fit:cover;object-position:0% 0%;margin-top:auto;margin-bottom:auto;";
 }
 
 

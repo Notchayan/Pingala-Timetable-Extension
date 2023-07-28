@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
   if (request.action === 'GetTT') {
     chrome.tabs.sendMessage(request.tabId, { action: 'GetTT' }, function(response) {
       let timetable = response.timetable;
+      let personal_data = response.personal_data;
       if(!(Object.keys(timetable).length)){
         return
       }
@@ -24,6 +25,9 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
         console.log('Timetable stored in Chrome Storage:', timetable)
         console.log("Timetable has been saved")
         setNotification();
+      })
+      chrome.storage.local.set({ personal_data: personal_data}, function() {
+        console.log('Personal Data Fetched:', personal_data)
       })
     });
   }

@@ -23,10 +23,12 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
       const parser = new DOMParser();
       const doc = parser.parseFromString(bodyContent, 'text/html');
       let timetable = {}
+      let personal_data = {}
       if(!CheckSite(doc)){
-        sendResponse({ timetable })
+        sendResponse({timetable: timetable, personal_data: personal_data});
         return
       }
+      personal_data = getPersonalData();
       const content = doc.getElementsByClassName("fc-event-container")
       let d = -1;
       for(let i=0; i<content.length; i++){
@@ -60,7 +62,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
             timetable[day].push({ time: time_start, time_end: time_end, title: title , lectureHall : '' })
         }
       }
-      sendResponse({timetable});
+      sendResponse({timetable: timetable, personal_data: personal_data});
     }
     if(request.action === 'LHC'){
         const bodyContent = document.body.innerHTML;
