@@ -28,6 +28,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
         sendResponse({timetable: timetable, personal_data: personal_data});
         return
       }
+      personal_data = getPersonalData();
       const content = doc.getElementsByClassName("fc-event-container")
       let d = -1;
       for(let i=0; i<content.length; i++){
