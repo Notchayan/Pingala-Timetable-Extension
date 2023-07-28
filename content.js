@@ -18,19 +18,10 @@ function getPersonalData(){
 }    
 
 chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
-    if(request.action==='getPersonalData'){
-        const bodyContent = document.body.innerHTML;
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(bodyContent, 'text/html');
-        const header=doc.getElementById('headerText');
-        if(header!==null&&header.innerText===' Student Pre-Registration Application'){
-            sendResponse(getPersonalData());
-          }
-    }
     if (request.action === 'GetTT') {
-        const bodyContent = document.body.innerHTML;
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(bodyContent, 'text/html');
+      const bodyContent = document.body.innerHTML;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(bodyContent, 'text/html');
       let timetable = {}
       if(!CheckSite(doc)){
         sendResponse({ timetable })
@@ -71,7 +62,77 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
       }
       sendResponse({timetable});
     }
- });
+    if(request.action === 'LHC'){
+        const bodyContent = document.body.innerHTML;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(bodyContent, 'text/html');
+        if(!CheckSite_1(doc)){
+            return
+        }
+        let data
+        search(request.courses, 10).then(LHC => {
+            console.log(LHC)
+            chrome.runtime.sendMessage({ action: 'LHCData', data: LHC });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+});
+
+async function search(queries, delay) {
+    let LHC = {}
+    const parent = document.getElementById('datatable_filter');
+    const input = parent.querySelector('.form-control');
+  
+    for (const query of queries) {
+        console.log(query);
+        input.value = '(' + query + ')';
+        const inputEvent = new Event('input', { bubbles: true });
+        input.dispatchEvent(inputEvent);
+        const changeEvent = new Event('change', { bubbles: true });
+        input.dispatchEvent(changeEvent);
+        
+        await new Promise(resolve => setTimeout(resolve, delay));
+
+        const table = document.getElementById('datatable');
+        const tbody = table.tBodies[0]
+        const firstRow = tbody.rows[0];
+        const firstCell = firstRow.cells[9];
+        const innerText = firstCell.innerText;
+        LHC[query] = innerText
+        console.log(innerText);
+    }
+    return LHC
+}
+  
+
+function CheckSite_1(doc){
+    const header = doc.getElementById('headerText')
+    if(header == null){
+        InvalidSite_1(1)
+        return false
+    }
+    if(header.innerText != ' Check Timetable'){
+        InvalidSite_1(1)
+        return false
+    }
+    const show = doc.getElementById('showTimeTableBtn')
+    if (showTimeTableBtn.getAttribute('disabled') !== null) {
+        InvalidSite_1(2)
+        return false
+    }
+    if(showTimeTableBtn.getAttribute('disabled') == null){
+        const table = document.getElementById('datatable');
+        const tbody = table.tBodies[0]
+        if(tbody.innerText === 'No data available in table'){
+            InvalidSite_1(2)
+            return false
+        }
+    }
+    alert('Your LHCs have been fetched Succesfully. You can see them in "Check Full TimeTable".')
+    return true
+}
 
 
 function CheckSite(doc){
@@ -80,16 +141,27 @@ function CheckSite(doc){
         InvalidSite()
         return false
     }
-    if(header.innerText !== ' Student Pre-Registration Application'){
+    if(header.innerText !==  ' Student Pre-Registration Application' && header.innerText !== ' Student Registration Application' ){
         InvalidSite()
         return false
     }
+    alert('Your Time Table has been Successfly Updated. Now, Everytime Chrome will Notify you about your upcoming class in 15 min advance.')
     return true
 }
 
 
 function InvalidSite(){
     alert('Cannot Update your Time Table. Please Login into your Pingala Portal and go to to Student Pre-Registration Application Page.')
+}
+
+
+function InvalidSite_1(x){
+    if(x == 1){
+        alert('Cannot Fetch LHCs. Please Login into your Pingala Portal and go to to Check Timetable Page.')
+    }
+    if(x == 2){
+        alert('Please Select your Academic Session, Semester and then Click "Show" button. Then Click Fetch Lecture Halls.')
+    }
 }
 
 
