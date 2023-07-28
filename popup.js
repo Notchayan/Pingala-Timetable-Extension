@@ -12,6 +12,14 @@ document.getElementById('updateBtn').addEventListener('click', async function() 
 
 
 
+
+
+
+
+
+
+
+
 document.getElementById('upcomingClass').addEventListener('click',async function() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true});
   chrome.runtime.sendMessage({ action: 'upcomingClass', tabId: tab.id });
@@ -24,28 +32,30 @@ document
     document.getElementById("upcomingClass").style.display = "none";
     document.getElementById("timetableBtn").style.display = "none";
     document.getElementById("updateBtn").style.display = "none";
-    
-    const bodyElement = document.getElementById("body");
+    document.getElementById("LHC").style.display = "none";
+    document.getElementsByClassName("personal")[0].style.display = "none";
+    const ContainerElement = document.getElementsByClassName("container")[0];
     let closeButton = document.createElement("button");
-    bodyElement.style.width = "798px";
+    ContainerElement.style.width = "798px";
     closeButton.innerHTML = "Back";
     closeButton.id = "closeButton";
     document.getElementById("closeBtn").appendChild(closeButton);
 
     document.getElementById("closeButton").addEventListener("click", () => {
-      const bodyElement = document.getElementById("body");
-      bodyElement.style.width = "275px";
+      const ContainerElement = document.getElementsByClassName("container")[0];
+      ContainerElement.style.width = "320px";
       document.getElementById("closeBtn").innerHTML = "";
       document.getElementById("timetableBtns").innerHTML = "";
       document.getElementById("timetableGrid").innerHTML = "";
       document.getElementById("upcomingClass").style.display = "";
       document.getElementById("timetableBtn").style.display = "";
       document.getElementById("updateBtn").style.display = "";
-      
+      document.getElementById("LHC").style.display = "";
+      document.getElementsByClassName("personal")[0].style.display = "";
       timetableGrid.style.opacity = '0';
     }); 
     addTT();
-    
+    LabClashes();
     timetableGrid.style.opacity = '1';
 
     let deleteButton = document.createElement("button");
@@ -60,8 +70,8 @@ document
     deleteBtn.addEventListener("click", () => {
       if (deleteButtonClicked) {
         deleteButtonClicked = false;
-        deleteBtn.innerHTML = "Delete Row";
-        deleteBtn.style.backgroundColor = "#4c7bfa";
+        deleteBtn.innerHTML = "Delete Class";
+        deleteBtn.style.backgroundColor = "#b38add";
         deleteBtn.style.color = "white";
         deleteBtn.style.border = "none";
         let minusSigns = document.getElementsByClassName("minus-btn");
@@ -168,7 +178,7 @@ document
         );
       });
     });
-    
+    LHC();
   });
 
 
@@ -204,6 +214,50 @@ function addTT() {
     document.getElementById("timetableGrid").innerHTML = gridHTML;
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
