@@ -23,8 +23,9 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
       const parser = new DOMParser();
       const doc = parser.parseFromString(bodyContent, 'text/html');
       let timetable = {}
+      let personal_data = {}
       if(!CheckSite(doc)){
-        sendResponse({ timetable })
+        sendResponse({timetable: timetable, personal_data: personal_data});
         return
       }
       const content = doc.getElementsByClassName("fc-event-container")

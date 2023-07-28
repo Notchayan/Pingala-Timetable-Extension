@@ -1,46 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Wix+Madefor+Display:wght@500&display=swap');
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  width: 275px;
-}
-
-.container {
-  width: 100%;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  max-height: 100%;
-  overflow-y: auto;
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 10px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 560px;
+  background-color: #ffffff;
+  overflow: hidden;
+  display:flex;
   flex-direction: column;
 }
   
+.personal{
+  display:flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  font-size:15px;
+  justify-content: center;
+  border-radius: 10px;
+  margin-bottom:16.08px;
+  margin-bottom: 20px;
+}
+.personalData{
+  margin-top:20px;
+  text-align: left;
+  background-color: #373c4f;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.imgDiv{
+  margin-top:-20px;
+  height:120px;
+}
+.imgDivBox{
+  margin-left:auto;
+  margin-right:auto;
+  width:110px;
+  height:70px;
+  background-color: #b38add;
+  display:flex;
+  flex-direction: column-reverse;
+}
+img{
+  border:10px solid;
+  border-color: #373c4f;
+  position:relative;
+  top:-47.5px;
+}
+.nameDiv{
+  margin-left:-20px;
+  margin-right:-20px;
+  margin-top:20px;
+  text-align: center;
+  background-color: #b38add;
+  color:black;
+  font-family: 'Quicksand', sans-serif;
+}
+.list{
+  color:#f9daff;
+  list-style-type:none;
+}
+ul{
+  padding-inline-start: 0px;
+}
+.container {
+  border-radius: 10px;
+  width: 320px;
+  padding: 20px;
+  text-align: center;
+  background-color: #373c4f;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-height: 100%;
+  overflow-y: auto;
+}
+h1{
+  font-size: 25px;
+  margin:0px;
+  margin-top:10px;
+}
+h3{
+  margin:0px;
+  margin-bottom:10px;
+}
+
+
+.tt{
+  color:#f9daff;
+  margin-bottom:10px;
+}
+
+.listDiv{
+  display:flex;
+  justify-content: center;
+
+}
+
 .header {
-  margin-bottom: 7.5px;
+  margin-top:-20px;
 }
 
 .header h2 {
   font-size: 18px;
-  color: #333;
+  color: 373c4f;
 }
 
-.buttons button{
-  width: 75%;
+.buttons {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+
+button {
+  font-family: 'Quicksand', sans-serif;
+  width: 100%;
+  padding: 12px;
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #4c7bfa;
-  color: #fff;
+  background-color: #b38add;
+  color: black;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  padding: 5px;
-  margin: 0 5px 10px 5px;
-  animation: fadeIn 1s ease forwards;
 }
 
-.buttons button:hover {
-  background-color: #2656c8;
+button:hover {
+  background-color: #9267bc;
+
+}
+
+.hide{
+  display: none;
 }
 
 #timetable #closeBtn{
@@ -69,7 +163,7 @@ body {
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #4c7bfa;
+  background-color: #b38add;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -100,7 +194,7 @@ body {
 
 .day-header {
   font-weight: bold;
-  background-color: #4c7bfa;
+  background-color: #9267bc;
   color: white;
   padding: 5px;
   text-align: center;
@@ -113,6 +207,7 @@ body {
   justify-content: space-between;
   align-items: center;
   border: 1px solid blue;
+  background-color: #b38add;
   padding: 5px;
   height: 80px; 
 }
@@ -129,12 +224,12 @@ body {
 }
 
 .class-cell:hover {
-  background-color: #f0f0f0;
+  background-color: #ccc;
   transform: scale(1.05);
 }
 
 .timetable-day:hover .day-header {
-  background-color: #4c7bfa;
+  background-color: #b38add;
   color: white;
 }
 
@@ -171,6 +266,7 @@ body {
   cursor: pointer;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
 
 
@@ -182,7 +278,7 @@ body {
 }
 
 .add-btn {
-  background-color: #4c7bfa;
+  background-color: blue;
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -217,7 +313,7 @@ input {
 }
 
 .blue-border {
-  border: 1.5px solid blue;
+  border: 1.5px solid #b38add;
 }
 
 .red-border {

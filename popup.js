@@ -1,9 +1,15 @@
 document.getElementById('updateBtn').addEventListener('click', async function() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.runtime.sendMessage({ action: 'GetTT', tabId: tab.id });
-  //document.getElementById('timetableBtn').classList.remove('hide');
-  window.alert('Yout Time Table has been Successfly Updated. Now, Everytime Chrome will Notify you about your upcoming class in 15 min advance.')
 });
+
+
+chrome.storage.local.get(['personal_data'], function(result) {
+  console.log(result.personal_data);
+  if(Object.keys(result).length){
+    Add_DashBoard(result.personal_data)
+  }
+})
 
 
 document.getElementById('Show_TT').addEventListener('click', async function() {
@@ -25,16 +31,17 @@ document
     document.getElementById("timetableBtn").style.display = "none";
     document.getElementById("updateBtn").style.display = "none";
     document.getElementById("LHC").style.display = "none";
-    const bodyElement = document.getElementById("body");
+    document.getElementsByClassName("personal")[0].style.display = "none";
+    const ContainerElement = document.getElementsByClassName("container")[0];
     let closeButton = document.createElement("button");
-    bodyElement.style.width = "798px";
+    ContainerElement.style.width = "798px";
     closeButton.innerHTML = "Back";
     closeButton.id = "closeButton";
     document.getElementById("closeBtn").appendChild(closeButton);
 
     document.getElementById("closeButton").addEventListener("click", () => {
-      const bodyElement = document.getElementById("body");
-      bodyElement.style.width = "275px";
+      const ContainerElement = document.getElementsByClassName("container")[0];
+      ContainerElement.style.width = "320px";
       document.getElementById("closeBtn").innerHTML = "";
       document.getElementById("timetableBtns").innerHTML = "";
       document.getElementById("timetableGrid").innerHTML = "";
@@ -42,6 +49,7 @@ document
       document.getElementById("timetableBtn").style.display = "";
       document.getElementById("updateBtn").style.display = "";
       document.getElementById("LHC").style.display = "";
+      document.getElementsByClassName("personal")[0].style.display = "";
       timetableGrid.style.opacity = '0';
     }); 
     addTT();
@@ -60,8 +68,8 @@ document
     deleteBtn.addEventListener("click", () => {
       if (deleteButtonClicked) {
         deleteButtonClicked = false;
-        deleteBtn.innerHTML = "Delete Row";
-        deleteBtn.style.backgroundColor = "#4c7bfa";
+        deleteBtn.innerHTML = "Delete Class";
+        deleteBtn.style.backgroundColor = "#b38add";
         deleteBtn.style.color = "white";
         deleteBtn.style.border = "none";
         let minusSigns = document.getElementsByClassName("minus-btn");
