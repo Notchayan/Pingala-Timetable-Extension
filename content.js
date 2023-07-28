@@ -62,7 +62,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
             timetable[day].push({ time: time_start, time_end: time_end, title: title , lectureHall : '' })
         }
       }
-      sendResponse({timetable});
+      sendResponse({timetable: timetable, personal_data: personal_data});
     }
     if(request.action === 'LHC'){
         const bodyContent = document.body.innerHTML;
