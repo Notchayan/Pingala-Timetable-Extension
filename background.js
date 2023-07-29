@@ -130,17 +130,21 @@ function showTT(){
   chrome.storage.local.get(['timetable'], function(result) {
     let storedData = result.timetable
     tableHTML = `
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
       <div 
         style=" 
           display: flex; 
           align-items: center; 
           justify-content: space-around; 
           flex-direction: column;
+          font-family: 'Quicksand', sans-serif;
         "
       >`;
     tableHTML += `
       <div style="font-size: min(7vw,50px); padding: min(.4rem,20px); width: 100%; text-align: center;">
-        Class Schedule
+        CLASS SCHEDULE
       </div>`
     tableHTML += `
       <table 

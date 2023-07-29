@@ -28,7 +28,7 @@ body {
 .personalData{
   margin-top:20px;
   text-align: left;
-  background-color: #373c4f;
+  background-color: #001c30;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -42,13 +42,13 @@ body {
   margin-right:auto;
   width:110px;
   height:70px;
-  background-color: #b38add;
+  background-color: #64ccc5;
   display:flex;
   flex-direction: column-reverse;
 }
 img{
   border:10px solid;
-  border-color: #373c4f;
+  border-color: #001c30;
   position:relative;
   top:-47.5px;
 }
@@ -57,12 +57,12 @@ img{
   margin-right:-20px;
   margin-top:20px;
   text-align: center;
-  background-color: #b38add;
+  background-color: #64ccc5;
   color:black;
   font-family: 'Quicksand', sans-serif;
 }
 .list{
-  color:#f9daff;
+  color:#dafffb;
   list-style-type:none;
 }
 ul{
@@ -73,7 +73,7 @@ ul{
   width: 320px;
   padding: 20px;
   text-align: center;
-  background-color: #373c4f;
+  background-color: #001c30;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-height: 100%;
   overflow-y: auto;
@@ -92,7 +92,7 @@ h3{
 
 
 .tt{
-  color:#f9daff;
+  color:#dafffb;
   margin-bottom:10px;
 }
 
@@ -108,7 +108,7 @@ h3{
 
 .header h2 {
   font-size: 18px;
-  color: 373c4f;
+  color: #001c30;
 }
 
 .buttons {
@@ -124,7 +124,7 @@ button {
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #b38add;
+  background-color: #64ccc5;
   color: black;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -134,8 +134,8 @@ button {
 }
 
 button:hover {
-  background-color: #9267bc;
-
+  background-color: #4ab3ac;
+  
 }
 
 .hide{
@@ -149,14 +149,16 @@ button:hover {
 }
 
 #timetable #closeBtn button{
-  color: white;
-  background-color: red;
+  background-color: #dafffb;
   border: none;
   border-radius: 5px;
   width: 100px;
   padding: 5px;
   font-size: medium;
   cursor: pointer;
+}
+#timetable #closeBtn button:hover{
+  background-color: #bbebe6;
 }
 
 #timetable #timetableBtns{
@@ -168,7 +170,7 @@ button:hover {
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #b38add;
+  background-color: #64ccc5;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -190,20 +192,23 @@ button:hover {
 .timetable-day {
   display: grid;
   gap: 8px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #dafffb; */
   height: min-content;
   padding: 8px;
   font-size: 16px;
   padding-top: 8px;
+  /* border-radius: 8%; */
 }
 
 .day-header {
   font-weight: bold;
-  background-color: #9267bc;
-  color: white;
+  background-color: #35a49d;
+  color: black;
   padding: 5px;
   text-align: center;
   height: 40px; 
+  border-radius:8px;
+  transition:0.3s;
 }
 
 .class-cell {
@@ -212,9 +217,11 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   border: 1px solid blue;
-  background-color: #b38add;
+  background-color: #64ccc5;
   padding: 5px;
-  height: 80px; 
+  height: 85px; 
+  border-radius:8px;
+  transition: 0.3s;
 }
 
 .time {
@@ -229,13 +236,13 @@ button:hover {
 }
 
 .class-cell:hover {
-  background-color: #ccc;
+  background-color: #dafffb;
   transform: scale(1.05);
 }
 
 .timetable-day:hover .day-header {
-  background-color: #b38add;
-  color: white;
+  background-color: #64ccc5;
+  color: black;
 }
 
 .timetable-header {
@@ -263,7 +270,7 @@ button:hover {
   width: 20px;
   height: 20px;
   background-color: red;
-  color: #fff;
+  color: #ffffff;
   font-size: 14px;
   font-weight: bold;
   border: none;
@@ -318,7 +325,7 @@ input {
 }
 
 .blue-border {
-  border: 1.5px solid #b38add;
+  border: 1.5px solid blue;
 }
 
 .red-border {
