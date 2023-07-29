@@ -77,6 +77,8 @@ ul{
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 h1{
   font-size: 25px;
@@ -126,6 +128,9 @@ button {
   color: black;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  padding: 5px;
+  margin: 0 5px 10px 5px;
+  animation: fadeIn 1s ease forwards;
 }
 
 button:hover {
