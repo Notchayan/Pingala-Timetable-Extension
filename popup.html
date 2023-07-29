@@ -11,14 +11,31 @@
 </head>
 <body id="body">
   <div class="container">
+    <div class="personal"></div>
     <div class="header">
-      <h1>CLASS REMINDER</h1>
+      <h1 class="tt">CLASS REMINDER</h1>
     </div>
     <div class="buttons">
+      <button id="updateBtn">Fetch TimeTable</button>
+      <button id="LHC">Fetch Lecture Halls</button>
       <button id="upcomingClass">Upcoming Class</button>
-      <button id="timetableBtn" onclick="window.location.href='timetable.html'">Check Full TimeTable</button>
-      <button id="issue">Resolve Issues</button>
-      <button id="updateBtn">Update TimeTable</button>
+
+
+      <button id="timetableBtn">Check TimeTable</button>
+      <button id="Show_TT">Show Full Timetable</button>
+
+    </div>
+    <div id="timetable">
+      <div id="closeBtn">
+
+      </div>
+      <div id="timetableBtns">
+
+      </div>
+      <div id="timetableGrid">
+
+      </div>
+
     </div>
 
     <div class="calendar">
@@ -91,3 +108,4 @@
   <script src="popup.js"></script>
 </body> 
 </html> 
+
