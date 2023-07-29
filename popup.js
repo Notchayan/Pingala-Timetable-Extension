@@ -34,10 +34,11 @@ document
     document.getElementsByClassName("personal")[0].style.display = "none";
     const ContainerElement = document.getElementsByClassName("container")[0];
     let closeButton = document.createElement("button");
-    ContainerElement.style.width = "798px";
+    ContainerElement.style.width = "760px";
     closeButton.innerHTML = "Back";
     closeButton.id = "closeButton";
     document.getElementById("closeBtn").appendChild(closeButton);
+    // document.getElementById("closeButton").style="color:#001c30";
 
     document.getElementById("closeButton").addEventListener("click", () => {
       const ContainerElement = document.getElementsByClassName("container")[0];
@@ -60,7 +61,8 @@ document
     deleteButton.innerHTML = "Delete Class";
     deleteButton.id = "deleteButton";
     document.getElementById("timetableBtns").appendChild(deleteButton);
-
+    document.getElementById('deleteButton').style="color:black";
+  
     let deleteButtonClicked = false;
 
     let deleteBtn = document.getElementById("deleteButton");
@@ -69,8 +71,8 @@ document
       if (deleteButtonClicked) {
         deleteButtonClicked = false;
         deleteBtn.innerHTML = "Delete Class";
-        deleteBtn.style.backgroundColor = "#b38add";
-        deleteBtn.style.color = "white";
+        deleteBtn.style.backgroundColor = "#64ccc5";
+        deleteBtn.style.color = "black";
         deleteBtn.style.border = "none";
         let minusSigns = document.getElementsByClassName("minus-btn");
 
@@ -80,9 +82,9 @@ document
       } else {
         deleteButtonClicked = true;
         deleteBtn.innerHTML = "Stop Deleting";
-        deleteBtn.style.backgroundColor = "white";
-        deleteBtn.style.color = "#4c7bfa";
-        deleteBtn.style.border = "2px solid #4c7bfa";
+        deleteBtn.style.backgroundColor = "#dafffb";
+        deleteBtn.style.color = "#176b87";
+        deleteBtn.style.border = "2px solid #176b87";
         let minusSigns = document.getElementsByClassName("minus-btn");
 
         Array.from(minusSigns).forEach(function (minusSign) {
@@ -200,7 +202,7 @@ function addTT() {
                            <div class="title">${title}</div>
                            <div class="${title} txt-btn"></div>
                            <div class="add-btn-container">
-                           <input type="text" class="${title}Inp" placeholder="Enter Lecture Hall">
+                           <input type="text" class="${title}Inp" placeholder="Add LHC">
                            <button class="${title}Btn add-btn">+</button>
                            </div>
                           </div>`;
