@@ -2,12 +2,36 @@ function getPersonalData(){
     let dp=document.getElementsByClassName('pull-left image')[0].getElementsByTagName('img')[0].src;
     let name=document.getElementsByClassName('pull-left info')[0].getElementsByTagName('p')[0].innerHTML.trim();
     let str=document.getElementsByClassName('content-header')[0]
-                     .getElementsByClassName('breadcrumb')[0]
-                     .getElementsByTagName('li')[1].innerText;
-    let roll_no=document.getElementsByClassName('row col-lg-12')[0].getElementsByClassName('col-lg-6')[0].getElementsByTagName('div')[0].innerText;
-    let programme=document.getElementsByClassName('row col-lg-12')[0].getElementsByClassName('col-lg-6')[1].getElementsByTagName('div')[0].innerText;
-    let dept=document.getElementsByClassName('row col-lg-12')[2].getElementsByClassName('col-lg-6')[0].getElementsByTagName('div')[0].innerText;
-    let appliedCredits=document.getElementsByClassName('row col-lg-12')[2].getElementsByClassName('col-lg-6')[1].getElementsByTagName('div')[0].innerText;
+    .getElementsByClassName('breadcrumb')[0]
+    .getElementsByTagName('li')[1].innerText;
+    
+    
+    let d=document.getElementsByClassName('col-lg-6');
+    let roll_no;
+    let programme;
+    let dept;
+    let appliedCredits;
+    for(let i=1;i<d.length;i++){
+        if(d[i].getElementsByTagName('div')[0].previousElementSibling.innerText==="Applied Credits :"){
+            appliedCredits=d[i].getElementsByTagName('div')[0].innerText;
+        }
+        else if(d[i].getElementsByTagName('div')[0].previousElementSibling.innerText==="Roll No. :"){
+            roll_no=d[i].getElementsByTagName('div')[0].innerText;
+        }
+        else if(d[i].getElementsByTagName('div')[0].previousElementSibling.innerText==="Programme :"){
+            programme=d[i].getElementsByTagName('div')[0].innerText;
+        }
+        else if(d[i].getElementsByTagName('div')[0].previousElementSibling.innerText==="Department :"){
+            dept=d[i].getElementsByTagName('div')[0].innerText;
+        }
+    }
+        
+    // let roll_no=document.getElementsByClassName('row col-lg-12')[0].getElementsByClassName('col-lg-6')[0].getElementsByTagName('div')[0].innerText;
+    // let programme=document.getElementsByClassName('row col-lg-12')[0].getElementsByClassName('col-lg-6')[1].getElementsByTagName('div')[0].innerText;
+    // let dept=document.getElementsByClassName('row col-lg-12')[2].getElementsByClassName('col-lg-6')[0].getElementsByTagName('div')[0].innerText;
+    // let appliedCredits=document.getElementsByClassName('row col-lg-12')[1].getElementsByClassName('col-lg-6')[1].getElementsByTagName('div')[0].innerText;
+
+
     let sem="";
     for(let i=0;i<str.length;i++){
         if((str[i]>='0'&&str[i]<='9')||str[i]==='/') sem+=str[i];
@@ -17,16 +41,35 @@ function getPersonalData(){
 
 }    
 
+function getPersonalData1(){
+  let dp=document.getElementsByClassName('pull-left image')[0].getElementsByTagName('img')[0].src;
+  let name=document.getElementsByClassName('pull-left info')[0].getElementsByTagName('p')[0].innerHTML.trim();
+  let roll_no;
+  let programme;
+  let dept;
+  let appliedCredits;
+  let sem="";
+  let x = document.getElementById("formcontent").getElementsByClassName("col-sm-4 col-lg-8 col-xs-4 col-md-4");
+  roll_no = x[0].innerText;
+  programme = x[2].innerText;
+  dept = x[3].innerText;
+  appliedCredits = x[4].innerText;
+  sem = x[7].innerText;
+  return {dp:dp,name:name,roll_no:roll_no,programme:programme,dept:dept,appliedCredits:appliedCredits,sem:sem};
+}
+
 chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
     if (request.action === 'GetTT') {
       const bodyContent = document.body.innerHTML;
       const parser = new DOMParser();
       const doc = parser.parseFromString(bodyContent, 'text/html');
       let timetable = {}
+      let personal_data = {}
       if(!CheckSite(doc)){
-        sendResponse({ timetable })
+        sendResponse({timetable: timetable, personal_data: personal_data});
         return
       }
+      personal_data = getPersonalData();
       const content = doc.getElementsByClassName("fc-event-container")
       let d = -1;
       for(let i=0; i<content.length; i++){
@@ -60,13 +103,96 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
             timetable[day].push({ time: time_start, time_end: time_end, title: title , lectureHall : '' })
         }
       }
-      sendResponse({timetable});
+      sendResponse({timetable: timetable, personal_data: personal_data});
+    }
+    if (request.action === 'FormTT') {
+        const bodyContent = document.body.innerHTML;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(bodyContent, 'text/html');
+        const timetable = {};
+        let personal_data = {};
+      
+        if (!CheckSite(doc)) {
+          sendResponse({ timetable: timetable, personal_data: personal_data });
+          return;
+        }
+      
+        personal_data = getPersonalData1();
+        const datatable1 = doc.getElementById("datatable1");
+      
+        if (datatable1) {
+          const content = datatable1.getElementsByTagName("tbody");
+          const rows = content[0].getElementsByTagName("tr");
+          
+          for (let j = 0; j < rows.length; j++) {
+            const x = rows[j].getElementsByTagName("td");
+            let lectureData = [];
+            let tutorialData = [];
+            let practicalData = [];
+            const inputString = x[8].textContent;
+            const parts = inputString.split(',');
+      
+            for (const part of parts) {
+              if (part.includes('Lec')) {
+                const data = parseTimeAndDays(part);
+                if (data) {
+                  lectureData.push(data);
+                }
+              } else if (part.includes('Tut')) {
+                const data = parseTimeAndDays(part);
+                if (data) {
+                  tutorialData.push(data);
+                }
+              } else if (part.includes('Prc')) {
+                const data = parseTimeAndDays(part);
+                if (data) {
+                  practicalData.push(data);
+                }
+              }
+              
+              if (lectureData.length > 0) {
+                for (const day of lectureData[0].days) {
+                  timetable[Day[day]].push({
+                    time: lectureData[0].start,
+                    time_end: lectureData[0].end,
+                    title: "Lec-"+x[1].textContent,
+                    lectureHall: lectureData[0].value
+                  });
+                }
+              }
+              
+              if (tutorialData.length > 0) {
+                for (const day of tutorialData[0].days) {
+                  timetable[Day[day]].push({
+                    time: tutorialData[0].start,
+                    time_end: tutorialData[0].end,
+                    title: "Tut-"+x[1].textContent,
+                    lectureHall: tutorialData[0].value
+                  });
+                }
+              }
+              
+              if (practicalData.length > 0) {
+                for (const day of practicalData[0].days) {
+                  timetable[Day[day]].push({
+                    time: practicalData[0].start,
+                    time_end: practicalData[0].end,
+                    title: "Prac-"+x[1].textContent,
+                    lectureHall: practicalData[0].value
+                  });
+                }
+              }
+            }
+          }
+        }
+        sendResponse({ timetable: timetable, personal_data: personal_data });
     }
     if(request.action === 'LHC'){
         const bodyContent = document.body.innerHTML;
         const parser = new DOMParser();
         const doc = parser.parseFromString(bodyContent, 'text/html');
-        if(!CheckSite_1(doc)){
+        chrome.runtime.sendMessage({action: 'alert', alert_type: CheckSite_1(doc)});
+        if(CheckSite_1(doc) !== '3'){
             return
         }
         let data
@@ -110,58 +236,36 @@ async function search(queries, delay) {
 function CheckSite_1(doc){
     const header = doc.getElementById('headerText')
     if(header == null){
-        InvalidSite_1(1)
-        return false
+        return '1'
     }
     if(header.innerText != ' Check Timetable'){
-        InvalidSite_1(1)
-        return false
+        return '1'
     }
     const show = doc.getElementById('showTimeTableBtn')
     if (showTimeTableBtn.getAttribute('disabled') !== null) {
-        InvalidSite_1(2)
-        return false
+        return '2'
     }
     if(showTimeTableBtn.getAttribute('disabled') == null){
         const table = document.getElementById('datatable');
         const tbody = table.tBodies[0]
         if(tbody.innerText === 'No data available in table'){
             InvalidSite_1(2)
-            return false
+            return '2'
         }
     }
-    alert('Your LHCs have been fetched Succesfully. You can see them in "Check Full TimeTable".')
-    return true
+    return '3'
 }
 
 
 function CheckSite(doc){
     const header = doc.getElementById('headerText')
     if(header === null){
-        InvalidSite()
         return false
     }
-    if(header.innerText !==  ' Student Pre-Registration Application' && header.innerText !== ' Student Registration Application' ){
-        InvalidSite()
+    if(!header.innerText.includes('Application')){
         return false
     }
-    alert('Your Time Table has been Successfly Updated. Now, Everytime Chrome will Notify you about your upcoming class in 15 min advance.')
     return true
-}
-
-
-function InvalidSite(){
-    alert('Cannot Update your Time Table. Please Login into your Pingala Portal and go to to Student Pre-Registration Application Page.')
-}
-
-
-function InvalidSite_1(x){
-    if(x == 1){
-        alert('Cannot Fetch LHCs. Please Login into your Pingala Portal and go to to Check Timetable Page.')
-    }
-    if(x == 2){
-        alert('Please Select your Academic Session, Semester and then Click "Show" button. Then Click Fetch Lecture Halls.')
-    }
 }
 
 
@@ -182,3 +286,41 @@ function Day(d){
         return "Friday"
     }
 }
+
+
+function parseTimeAndDays(input) {
+  const regex = /(\w+:\s*)([A-Za-z]+)\s+(\d{1,2}:\d{2})-(\d{1,2}:\d{2})\s+\(([^)]+)\)/;
+  const match = input.match(regex);
+  if (match) {
+      const [, , daysString, startTime, endTime, valueInBrackets] = match;
+
+      const daysArray = [];
+      const daysMap = {
+          M: 0,
+          T: 1,
+          W: 2,
+          Th: 3,
+          F: 4,
+      };
+
+      let i = 0;
+      while (i < daysString.length) {
+          const currentChar = daysString[i];
+          if (daysMap[currentChar] !== undefined) {
+              if (currentChar === 'T' && daysString[i + 1] === 'h') {
+                  daysArray.push(daysMap['Th']);
+                  i++; 
+              } else {
+                  daysArray.push(daysMap[currentChar]);
+              }
+          }
+          i++;
+      }
+
+
+      return { days: daysArray, start: startTime, end: endTime, value: valueInBrackets };
+  }
+  return null;
+}
+
+  
