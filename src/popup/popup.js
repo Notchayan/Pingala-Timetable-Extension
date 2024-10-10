@@ -4,7 +4,7 @@ document
     const [tab] = await chrome.tabs.query({
       active: true,
       currentWindow: true,
-    });
+    }); 
     chrome.runtime.sendMessage({ action: "GetTT", tabId: tab.id });
   });
 
