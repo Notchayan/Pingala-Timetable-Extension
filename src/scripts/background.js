@@ -14,7 +14,6 @@
  * 7. The script listens for user interactions and handles scheduling notifications based on live data.
  */
 
-
 // Handle extension installation event
 chrome.runtime.onInstalled.addListener(() => {
   chrome.windows.create({
