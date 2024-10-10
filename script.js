@@ -12,7 +12,6 @@
   10. Uses HTML, CSS, and JavaScript (DOM manipulation) to create a fully interactive calendar interface with event management features.
 */
 
-
 const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
