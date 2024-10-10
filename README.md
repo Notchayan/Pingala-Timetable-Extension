@@ -94,12 +94,6 @@ The extension displays a personalized user dashboard that includes the student's
 
 At Pingala, the security and privacy of our users are paramount. The extension stores your timetable data locally, ensuring that no personal information is shared or transmitted. All user data remains within the user's browser environment, safeguarding privacy at all times.
 
-## Directory Structure
-
-Below is the directory structure for the Pingala Timetable Chrome Extension:
-
-pingala-timetable-extension/ ├── assets/ # Contains images and icons │ ├── logo.png │ └── profile-picture-placeholder.png ├── background/ # Background scripts │ ├── background.js ├── content/ # Content scripts │ ├── content.js ├── css/ # Stylesheets │ ├── style.css ├── js/ # JavaScript logic │ ├── notification.js │ ├── timetable-fetcher.js │ └── class-manager.js ├── popup/ # Popup interface │ ├── popup.html │ ├── popup.js ├── manifest.json # Extension manifest ├── package.json # Package configuration └── README.md # Documentation
-
 ## Contribute
 
 We encourage contributions from the developer community to further enhance and expand the Pingala Timetable Chrome Extension. If you would like to contribute, please follow these steps:
