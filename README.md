@@ -1,107 +1,37 @@
-# Pingala Timetable Chrome Extension
+# Class Hai Bhai! - Chrome Extension for Pingala
 
-The **Pingala Timetable Chrome Extension** is an advanced tool designed to streamline timetable management for students, offering features such as simplified timetable imports, real-time class notifications, and seamless lecture hall updates. This extension enhances the overall student experience by providing comprehensive and up-to-date access to their schedules, while ensuring ease of use and privacy.
-
-## Features
-
-### 1. Timetable Import
-The extension allows the user to fetch their timetable directly from the **Student Add-Drop Application Page** or **Student Pre-Registration Application Page**. The fetched timetable is securely stored within the extension, ensuring efficient access and management. 
-
-### 2. Lecture Hall Update
-Users can retrieve lecture hall information (where available) from the **Check Timetable** page and automatically update the stored timetable. This feature guarantees that the timetable is accurate and up to date.
-
-### 3. Full Timetable View
-The user can view their complete timetable in a dedicated tab. This feature provides a comprehensive overview of classes, labs, and free periods in one place, allowing for easy navigation and planning.
-
-### 4. Notification System
-A built-in notification system sends timely reminders 15 minutes before each class. Users are alerted in advance, ensuring they stay on track with their schedule.
-
-### 5. Class Management
-Users can remove unwanted classes or labs from their timetable. The extension detects and highlights class conflicts (e.g., overlapping schedules), marking them in red for easy identification and resolution.
-
-### 6. Customized User Dashboard
-The extension displays a personalized user dashboard that includes the student's profile details, such as:
-- **Picture**
-- **Name**
-- **Roll Number**
-- **Programme**
-- **Department**
-- **Semester**
-- **Number of Applied Credits**
-
-## How to Use
-
-1. **Installation**: Install the Pingala Timetable Chrome Extension from the Chrome Web Store.
-2. **Fetching Timetable**: Navigate to the **Student Add-Drop Application Page** or **Student Pre-Registration Application Page**. Click on `Fetch TimeTable` to import a new timetable.
-3. **Updating Lecture Halls**: Go to the **Check Timetable** page, select the appropriate year and semester, and click on **Show**. Then open the extension and click on `Fetch Lecture Halls` to retrieve the lecture hall information (if available).
-4. **Viewing Timetable and Managing Classes**: Click on **Check Timetable** to view the currently stored timetable. To delete a class, click on **Delete Class** and then click the '-' icon in red. Once finished, click on **Stop Deleting** to save changes.
-5. **Upcoming Class Notifications**: Receive class reminders 15 minutes before each scheduled class. Click on **Upcoming Class** to manually receive a notification about the next class.
-6. **Viewing Full Timetable in a Separate Tab**: Click on **Show Full Timetable** to view your complete timetable in a new tab.
-
-## Privacy and Security
-
-At Pingala, the security and privacy of our users are paramount. The extension stores your timetable data locally, ensuring that no personal information is shared or transmitted. All user data remains within the user's browser environment, safeguarding privacy at all times.
-
-## Directory Structure
-
-Below is the directory structure for the Pingala Timetable Chrome Extension:
-
-Here is the Markdown code for the documentation:
-
-md
-Copy code
-# Pingala Timetable Chrome Extension
-
-The **Pingala Timetable Chrome Extension** is an advanced tool designed to streamline timetable management for students, offering features such as simplified timetable imports, real-time class notifications, and seamless lecture hall updates. This extension enhances the overall student experience by providing comprehensive and up-to-date access to their schedules, while ensuring ease of use and privacy.
+Class Hai Bhai! is a Chrome Extension designed to enhance student experience by simplifying timetable management from Pingala, IITK's Academic Management Portal, and providing timely class notifications.
 
 ## Features
 
 ### 1. Timetable Import
-The extension allows the user to fetch their timetable directly from the **Student Add-Drop Application Page** or **Student Pre-Registration Application Page**. The fetched timetable is securely stored within the extension, ensuring efficient access and management. 
+The user can fetch his/her timetable from the Form Status Page on Pingala, by choosing the Pre-registeration Form for the current semester. The imported timetable is stored securely within the extension, ensuring easy access and management.
 
-### 2. Lecture Hall Update
-Users can retrieve lecture hall information (where available) from the **Check Timetable** page and automatically update the stored timetable. This feature guarantees that the timetable is accurate and up to date.
+### 2. Full Timetable View
+The user can view his/her complete timetable in a new tab. This allows the user to have a comprehensive overview of his/her classes, labs, and free periods all in one place.
 
-### 3. Full Timetable View
-The user can view their complete timetable in a dedicated tab. This feature provides a comprehensive overview of classes, labs, and free periods in one place, allowing for easy navigation and planning.
+### 3. Notification System
+The extension also has a built-in notification system. The user will receive timely notifications 15 minutes before every class.
 
-### 4. Notification System
-A built-in notification system sends timely reminders 15 minutes before each class. Users are alerted in advance, ensuring they stay on track with their schedule.
+### 4. Class Management
+The user has the flexibility to remove any unwanted class or lab from his/her timetable. The extension even identifies clashes where two classes are scheduled simultaneously, marking them in red for easy identification and removal.
 
-### 5. Class Management
-Users can remove unwanted classes or labs from their timetable. The extension detects and highlights class conflicts (e.g., overlapping schedules), marking them in red for easy identification and resolution.
-
-### 6. Customized User Dashboard
-The extension displays a personalized user dashboard that includes the student's profile details, such as:
-- **Picture**
-- **Name**
-- **Roll Number**
-- **Programme**
-- **Department**
-- **Semester**
-- **Number of Applied Credits**
+### 5. Customised User Dashboard
+The extension also displays the user's Picture, Name, Roll Number, Programme, Department, Semester and the Number of Applied Credits.
 
 ## How to Use
 
-1. **Installation**: Install the Pingala Timetable Chrome Extension from the Chrome Web Store.
-2. **Fetching Timetable**: Navigate to the **Student Add-Drop Application Page** or **Student Pre-Registration Application Page**. Click on `Fetch TimeTable` to import a new timetable.
-3. **Updating Lecture Halls**: Go to the **Check Timetable** page, select the appropriate year and semester, and click on **Show**. Then open the extension and click on `Fetch Lecture Halls` to retrieve the lecture hall information (if available).
-4. **Viewing Timetable and Managing Classes**: Click on **Check Timetable** to view the currently stored timetable. To delete a class, click on **Delete Class** and then click the '-' icon in red. Once finished, click on **Stop Deleting** to save changes.
-5. **Upcoming Class Notifications**: Receive class reminders 15 minutes before each scheduled class. Click on **Upcoming Class** to manually receive a notification about the next class.
-6. **Viewing Full Timetable in a Separate Tab**: Click on **Show Full Timetable** to view your complete timetable in a new tab.
+1. **Installation**: Install the Class Hai Bhai! extension from the Chrome Web Store.
+2. **Fetching Timetable**: Open Pingala. Navigate to the Form Status Page and choose the form for a semester and click on `Fetch TimeTable` whenever you want to fetch a new timetable.
+3. **Viewing Timetable and Class Management**: Click on `Check Timetable` to view the currently stored timetable. To delete any class, click on `Delete Class` and then Click on the '-' icon in red to delete any class. When you are done, click on `Stop Deleting` to save the changes.
+4. **Upcoming Class Notifications**: Receive timely class notifications 15 minutes before each class. Further, Click on `Upcoming Class` to manually get a notification about the next class. Note : In order to get a new notification, ensure that you have cleared all the previous notifications.
+5. **Viewing Full TimeTable in a Separate Tab**: Click on `Show Full Timetable` to comprehensively view the full timetable in a new tab.
+
 
 ## Privacy and Security
 
-At Pingala, the security and privacy of our users are paramount. The extension stores your timetable data locally, ensuring that no personal information is shared or transmitted. All user data remains within the user's browser environment, safeguarding privacy at all times.
+Your data security and privacy are of utmost importance to us. The extension securely stores your timetable data locally, and no personal information is collected or shared.
 
 ## Contribute
 
-We encourage contributions from the developer community to further enhance and expand the Pingala Timetable Chrome Extension. If you would like to contribute, please follow these steps:
-
-1. Fork the repository on GitHub.
-2. Create a new branch for your changes.
-3. Make your modifications.
-4. Submit a pull request.
-
-Your contributions will help improve the extension and make it more robust for students.
-
+We welcome contributions from the community to improve and expand the Class Hai Bhai! Chrome Extension. If you're a developer and would like to contribute, please fork our repository on GitHub and submit pull requests.
