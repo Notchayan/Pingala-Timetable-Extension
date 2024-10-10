@@ -2,7 +2,7 @@
 // Importing the required functions
 import { initCalendar, addEvent, updateEvents, saveEvents, getEvents } from './content.js'; // Assuming the code is in content.js
 import { JSDOM } from 'jsdom';
-
+ 
 describe('Calendar functionality tests', () => {
   let dom;
   let document;
