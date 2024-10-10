@@ -1,3 +1,18 @@
+/*
+  This script implements a dynamic, interactive calendar with the following features:
+  1. Initializes and displays the current month's calendar, showing the days, including those from the previous and next month if necessary.
+  2. Provides navigation buttons to move between months, updating the displayed days accordingly.
+  3. Allows users to select a specific day, highlighting it and updating the event list for that day.
+  4. Highlights today's date and shows any events associated with it.
+  5. Provides an option to view events for a specific day, allowing users to add new events with titles and start/end times.
+  6. Provides a 'Today' button to quickly navigate to the current day.
+  7. Offers a "goto" input field to jump to a specific month and year.
+  8. Supports adding, updating, and displaying events with titles and times, saving them for persistent access.
+  9. Integrates form validation to ensure required fields (event title, start, and end times) are filled before submission.
+  10. Uses HTML, CSS, and JavaScript (DOM manipulation) to create a fully interactive calendar interface with event management features.
+*/
+
+
 const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
